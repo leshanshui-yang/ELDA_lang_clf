@@ -1,0 +1,11 @@
+hdfs
+scikit-learn
+pickle-mixin
+gunicorn
+gevent
+flask
+numpy
+torch==1.3.0
+cloudpickle==1.2.2
+git+https://github.com/NVIDIA/apex
+imageio==2.5.0curl
