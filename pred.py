@@ -60,7 +60,7 @@ def predict():
             client_hdfs.download(request.json['csv_path'], "./tweets.csv", overwrite=True)
             inputs = list(pd.read_csv('tweets.csv', names=['tweets']).tweets)
     else:
-        abort(Response('Json not understandable, make sure you have "inputs" and "classes" key.'))
+        abort(Response('Json not understandable, make sure that you have "inputs" and "classes" key.'))
 
     
     # load model and preprocess/postprocess in memory
