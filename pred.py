@@ -16,7 +16,7 @@ import requests
 logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 application = Flask(__name__)
-
+hdfs_uri = 'http://nn1:50070'
 
 @application.route('/config', methods=['POST'])
 def config():
@@ -30,7 +30,7 @@ def config():
     logger.info('Read json configurations: OK!!')
     
     # Download files from HDFS
-    client_hdfs = InsecureClient('http://nn2:50070')
+    client_hdfs = InsecureClient(hdfs_uri)
     client_hdfs.download(requirements_file, "./requirements.txt", overwrite=True)
     client_hdfs.download(model_file, "./model.pickle", overwrite=True)
     client_hdfs.download(preprocess_file, "./preprocess.pickle", overwrite=True)
@@ -56,7 +56,7 @@ def predict():
         if 'inputs' in request.json:
             inputs = request.json['inputs']
         elif 'csv_path' in request.json:
-            client_hdfs = InsecureClient('http://nn2:50070')
+            client_hdfs = InsecureClient(hdfs_uri)
             client_hdfs.download(request.json['csv_path'], "./tweets.csv", overwrite=True)
             inputs = list(pd.read_csv('tweets.csv', names=['tweets']).tweets)
     else:
