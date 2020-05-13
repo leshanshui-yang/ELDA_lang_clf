@@ -62,7 +62,7 @@ def predict():
             inputs = list(pd.read_csv('tweets.csv', names=['tweets'], skiprows=1).tweets)
     else:
         abort(Response('Json not understandable, make sure that you have "inputs" and "classes" key.'))
-
+    return jsonify({'inputs': inputs}), 201
     
     # load model and preprocess/postprocess in memory
     if (not current_app.inMemory):
