@@ -45,6 +45,7 @@ def config():
     current_app.hdfs_uri = hdfs_uri
     current_app.inMemory = False
     current_app.configured = True
+    current_app.client_hdfs = client_hdfs
     return jsonify({'status': "Docker configured"}), 201
 
 
@@ -60,8 +61,7 @@ def predict():
             inputs = request.json['inputs']
         elif 'csv_path' in request.json:
             hdfs_uri = request.json['hdfs_uri']
-            client_hdfs = InsecureClient(hdfs_uri)
-            client_hdfs.download(request.json['csv_path'], "./tweets.csv", overwrite=True)
+            current_app.client_hdfs.download(request.json['csv_path'], "./tweets.csv", overwrite=True)
             inputs = list(pd.read_csv('tweets.csv', names=['tweets'], skiprows=1).tweets)
     else:
         abort(Response('Json not understandable, make sure that you have "inputs" and "classes" key.'))
