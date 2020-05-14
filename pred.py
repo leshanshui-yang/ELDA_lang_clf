@@ -13,9 +13,13 @@ import importlib
 import requests
 
 
-logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
+# logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+handler = logging.StreamHandler()
+handler.setLevel(logging.ERROR)
+
 application = Flask(__name__)
+application.logger.addHandler(handler)
 # hdfs_uri = 'http://nn1:50070'
 
 @application.route('/config', methods=['POST'])
@@ -46,7 +50,6 @@ def config():
 
 @application.route('/predict', methods=['POST'])
 def predict():
-    
     # Read inputs/classes or Return reason of abort
     if not hasattr(current_app, 'configured'):
         abort(Response('Docker not configured. Need to call /config API first.'))
