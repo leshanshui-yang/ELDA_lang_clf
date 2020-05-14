@@ -13,13 +13,13 @@ import importlib
 import requests
 
 
-# logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler()
 handler.setLevel(logging.ERROR)
 
 application = Flask(__name__)
 application.logger.addHandler(handler)
+# logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
 # hdfs_uri = 'http://nn1:50070'
 
 @application.route('/config', methods=['POST'])
