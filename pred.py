@@ -60,12 +60,10 @@ def predict():
         if 'inputs' in request.json:
             inputs = request.json['inputs']
         elif 'csv_path' in request.json:
-            hdfs_uri = request.json['hdfs_uri']
             current_app.client_hdfs.download(request.json['csv_path'], "./tweets.csv", overwrite=True)
-            inputs = list(pd.read_csv('tweets.csv', names=['tweets'], skiprows=1).tweets)
+            inputs = list(pd.read_csv('tweets.csv', names=['tweets'], skiprows=1, encoding='utf-8').tweets)
     else:
         abort(Response('Json not understandable, make sure that you have "inputs" and "classes" key.'))
-    return jsonify({'inputs': inputs}), 201
     
     # load model and preprocess/postprocess in memory
     if (not current_app.inMemory):
