@@ -61,7 +61,7 @@ def predict():
             inputs = request.json['inputs']
         elif 'csv_path' in request.json:
             current_app.client_hdfs.download(request.json['csv_path'], "./tweets.csv", overwrite=True)
-            inputs = list(pd.read_csv('tweets.csv', names=['tweets'], skiprows=1, encoding='latin-1').tweets)
+            inputs = list(pd.read_csv('tweets.csv', names=['tweets'], skiprows=1, encoding='utf-8', engine='python', error_bad_lines=False).tweets)
     else:
         abort(Response('Json not understandable, make sure that you have "inputs" and "classes" key.'))
     
