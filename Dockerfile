@@ -13,8 +13,6 @@ RUN pip install hdfs
 RUN pip install torch==1.3.0
 RUN pip install cloudpickle==1.2.2
 
-RUN pip install transformers
-
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends curl
 
