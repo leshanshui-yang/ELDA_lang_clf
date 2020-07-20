@@ -21,5 +21,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl
 COPY . /app
 WORKDIR /app
 
-EXPOSE 2333
-CMD ["gunicorn", "-b", "0.0.0.0:2333", "pred"]
+EXPOSE 8051
+CMD ["gunicorn", "-b", "0.0.0.0:8051", "app_io"]
